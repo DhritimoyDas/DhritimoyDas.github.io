@@ -1,4 +1,6 @@
 
+<center><img src="https://i.ibb.co/84M3SLP/maxresdefault-1.png"></center>
+
 El comando `grep` es una herramienta de búsqueda de texto que se utiliza en sistemas operativos Unix, Linux y macOS. Su nombre proviene de "Global Regular Expression Print" ("Impresión global de expresiones regulares", en español).
 
 La función principal de `grep` es buscar patrones de texto dentro de uno o varios archivos. Los patrones se definen mediante expresiones regulares, que son secuencias de caracteres que describen un conjunto de cadenas de texto.
