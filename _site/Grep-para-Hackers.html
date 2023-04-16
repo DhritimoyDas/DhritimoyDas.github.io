@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="generator" content="Jekyll">
+
+  <title>Grep Para Hackers</title>
+
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" /> <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Grep Para Hackers | AlexGD Hacker Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Grep Para Hackers" />
+<meta name="author" content="AlexGD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="El comando grep es una herramienta de búsqueda de texto que se utiliza en sistemas operativos Unix, Linux y macOS. Su nombre proviene de “Global Regular Expression Print” (“Impresión global de expresiones regulares”, en español)." />
+<meta property="og:description" content="El comando grep es una herramienta de búsqueda de texto que se utiliza en sistemas operativos Unix, Linux y macOS. Su nombre proviene de “Global Regular Expression Print” (“Impresión global de expresiones regulares”, en español)." />
+<link rel="canonical" href="http://localhost:8585/Grep-para-Hackers" />
+<meta property="og:url" content="http://localhost:8585/Grep-para-Hackers" />
+<meta property="og:site_name" content="AlexGD Hacker Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-16T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Grep Para Hackers" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"AlexGD","url":"https://al3xgd.github.io"},"dateModified":"2023-04-16T00:00:00+02:00","datePublished":"2023-04-16T00:00:00+02:00","description":"El comando grep es una herramienta de búsqueda de texto que se utiliza en sistemas operativos Unix, Linux y macOS. Su nombre proviene de “Global Regular Expression Print” (“Impresión global de expresiones regulares”, en español).","headline":"Grep Para Hackers","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:8585/Grep-para-Hackers"},"url":"http://localhost:8585/Grep-para-Hackers"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+  <div id="wrapper">
+    <header>
+  <div>
+    <a href="/">
+    
+    <h1>alex@home:~$</h1>
+    </a>
+    <div class="header-links">
+      <a href="/archive"><h2 class="header-link">Archive</h2></a>
+<a href="/about"><h2 class="header-link">About</h2></a>
+<a href="/atom.xml"><h2 class="header-link">RSS</h2></a>
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <section id="main_content">
+        <article>
+  <h2>Grep Para Hackers</h2>
+  <time datetime="2023-04-16T00:00:00+02:00" class="by-line">16 Apr 2023</time>
+  
+<p>El comando <code class="language-plaintext highlighter-rouge">grep</code> es una herramienta de búsqueda de texto que se utiliza en sistemas operativos Unix, Linux y macOS. Su nombre proviene de “Global Regular Expression Print” (“Impresión global de expresiones regulares”, en español).</p>
+
+<p>La función principal de <code class="language-plaintext highlighter-rouge">grep</code> es buscar patrones de texto dentro de uno o varios archivos. Los patrones se definen mediante expresiones regulares, que son secuencias de caracteres que describen un conjunto de cadenas de texto.</p>
+
+<p><code class="language-plaintext highlighter-rouge">grep</code> recorre línea por línea los archivos especificados y devuelve las líneas que contienen el patrón buscado. También puede mostrar la línea anterior o posterior a la que contiene el patrón, contar el número de líneas que contienen el patrón, entre otras funciones.</p>
+
+<p>Acontinuacion vamos a ver con distintos ejemplos como puedes emplear grep en tu diario dia a dia como Hacker.</p>
+
+<h2 id="obteniendo-urls-que-comienzen-con-https-http">Obteniendo urls que comienzen con https:// http://</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -o 'http[s]\?://[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+' </code></p>
+
+<h2 id="obteniendo-urls-que-comienzen-con-www-y-no-con-httphttps">Obteniendo urls que comienzen con www. y no con http:/https:</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -o 'www\.[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+'</code></p>
+
+<h2 id="obteniendo-ips-ipv4">Obteniendo IPs (IPv4)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"</code></p>
+
+<h2 id="obteniendo-ips-ipv6">Obteniendo IPs IPv6</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -oE "([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}"</code></p>
+
+<h2 id="obteniendo-direcciones-que-tengan-el-formato-usuariogmailcom">Obteniendo direcciones que tengan el formato “usuario@gmail.com”</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -oE ':alnum:]_]+@[[:alnum:]_]+\.[[:alpha:{2,4}'</code></p>
+
+<h2 id="obteniendo-direcciones-que-incluyan-subdominios-y-tengan-un-fomato-mas-complejo">Obteniendo direcciones que incluyan subdominios y tengan un fomato mas complejo</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -oE ':alnum:]_]+@[[:alnum:]_]+\.[[:alpha:{2,4}(\.:alpha:{2,4})+'</code></p>
+
+<h2 id="buscando-buscando-palabras-claves-dentro-de-directorios-de-manera-recursiva">Buscando buscando palabras claves dentro de directorios de manera recursiva</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -r "password" /ruta/al/directorio</code></p>
+
+<h2 id="buscando-palabra-clave-dentro-de-un-fichero-individual">Buscando palabra clave dentro de un fichero individual</h2>
+
+<p><code class="language-plaintext highlighter-rouge">grep -i "password" index.php</code></p>
+
+<h1 id="ejemplos-de-uso">Ejemplos de uso</h1>
+
+<h3 id="puedes-usarlo-para-obtener-todas-las-urls-de-un-sitio-web">Puedes usarlo para obtener todas las URLs de un sitio Web</h3>
+
+<p><code class="language-plaintext highlighter-rouge">curl -s https://target.com | grep -o 'http[s]\?://[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+' | cut -d '/' -f 3 | tr -d '"&gt;' | uniq -u</code></p>
+
+<h3 id="puedes-obtener-urls-de-ficheros-binarios">Puedes obtener urls de ficheros binarios</h3>
+
+<p><code class="language-plaintext highlighter-rouge">string &lt;fichero binario&gt; | grep 'http[s]\?://[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+'</code></p>
+
+<h3 id="puedes-usar-grep-para-la-recoleccion-emails-de-un-fichero-sql-u-otros-ficheros">Puedes usar grep para la recoleccion Emails de un fichero sql u otros ficheros.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">cat db.sql | grep -oE ':alnum:]_]+@[[:alnum:]_]+\.[[:alpha:{2,4}(\.:alpha:{2,4})+' | uniq -u</code></p>
+
+
+</article>
+      </section>
+    </div>
+  </div>
+
+   <footer>
+  <a href="https://creativecommons.org/licenses/by-nc/3.0/deed.en_US">
+    <span>
+        <b>Alex Gonzales D.</b>
+    </span>
+    
+    <span>© 2023</span>
+  </a>
+</footer>
+
+  
+</body>
+
+</html>

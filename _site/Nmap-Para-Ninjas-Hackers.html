@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="generator" content="Jekyll">
+
+  <title>Nmap para Ninja Hackers</title>
+
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" /> <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Nmap para Ninja Hackers | AlexGD Hacker Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Nmap para Ninja Hackers" />
+<meta name="author" content="AlexGD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Nmap es una de las herramientas indispensable para cualquier experto en ciberseguidad y administrador de red es una de las herramientas que no debe faltar dentro de tu arsenal de herramientas, acontinuacion aprenderemos como usar algunas opciones de Nmap para escanear puertos de manera sigilosa volando por debajo el radar." />
+<meta property="og:description" content="Nmap es una de las herramientas indispensable para cualquier experto en ciberseguidad y administrador de red es una de las herramientas que no debe faltar dentro de tu arsenal de herramientas, acontinuacion aprenderemos como usar algunas opciones de Nmap para escanear puertos de manera sigilosa volando por debajo el radar." />
+<link rel="canonical" href="http://localhost:8585/Nmap-Para-Ninjas-Hackers" />
+<meta property="og:url" content="http://localhost:8585/Nmap-Para-Ninjas-Hackers" />
+<meta property="og:site_name" content="AlexGD Hacker Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-16T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Nmap para Ninja Hackers" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"AlexGD","url":"https://al3xgd.github.io"},"dateModified":"2023-04-16T00:00:00+02:00","datePublished":"2023-04-16T00:00:00+02:00","description":"Nmap es una de las herramientas indispensable para cualquier experto en ciberseguidad y administrador de red es una de las herramientas que no debe faltar dentro de tu arsenal de herramientas, acontinuacion aprenderemos como usar algunas opciones de Nmap para escanear puertos de manera sigilosa volando por debajo el radar.","headline":"Nmap para Ninja Hackers","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:8585/Nmap-Para-Ninjas-Hackers"},"url":"http://localhost:8585/Nmap-Para-Ninjas-Hackers"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+  <div id="wrapper">
+    <header>
+  <div>
+    <a href="/">
+    
+    <h1>alex@home:~$</h1>
+    </a>
+    <div class="header-links">
+      <a href="/archive"><h2 class="header-link">Archive</h2></a>
+<a href="/about"><h2 class="header-link">About</h2></a>
+<a href="/atom.xml"><h2 class="header-link">RSS</h2></a>
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <section id="main_content">
+        <article>
+  <h2>Nmap para Ninja Hackers</h2>
+  <time datetime="2023-04-16T00:00:00+02:00" class="by-line">16 Apr 2023</time>
+  <p>Nmap es una de las herramientas indispensable para cualquier experto en ciberseguidad y administrador de red es una de las herramientas que no debe faltar dentro de tu arsenal de herramientas, acontinuacion aprenderemos como usar algunas opciones de Nmap para escanear puertos de manera sigilosa volando por debajo el radar.</p>
+
+<h3 id="escaneando-puertos-de-manera-sigilosa-con-tcp-syn-stealth">Escaneando puertos de manera sigilosa con TCP SYN stealth</h3>
+
+<p>Escaneo sigiloso usando el metodo SYN para el escaneo de puertos, La ventaja de un escaneo de tipo SYN es que no establece una conexión completa con el servidor, lo que significa que el escaneo es menos intrusivo y más rápido.</p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -Pn -n -sSCV -T4 192.168.0.1</code></p>
+
+<p>Con la opcion <strong>-Pn</strong>  le decimos a Nmap que no realize un Ping al Target, con la opcion <strong>-n</strong>
+le decimos que no realize un resolucion DNS esto para agilizar el escaneo y ahorrarnos tiempo, luego esta la opcion <strong>-sSCV</strong> la cual es una combinacion de varias opciones:</p>
+
+<p><strong>-sS</strong> :  Con esta opcion le estamos diciendo a Nmap que realize un escaneo usando el metodo SYN.</p>
+
+<p><strong>-sV</strong> : Para obtener version de los puertos abiertos.</p>
+
+<p><strong>-sC</strong> : Para correr Scripts NSE en los puertos abiertos y asi obtener la mayor informacion posible del servicio abierto.</p>
+
+<p>Y como ultima opcion tenemos la opcion <strong>-T4</strong>  que es un temporizador agresivo para acelerar el escaneo.</p>
+
+<h3 id="escaneo-de-puertos-tcp-utilizando-un-puerto-aleatorio-de-origen">Escaneo de puertos TCP utilizando un puerto aleatorio de origen</h3>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -sS -T4 -A -v -p 1-65535 -g 53 &lt;IP del objetivo&gt;</code></p>
+
+<p>Este comando utiliza un puerto aleatorio de origen para cada paquete enviado, lo que dificulta que el objetivo lo detecte. También se utiliza el puerto 53 (DNS) como puerto de salida para engañar a algunos firewalls.</p>
+
+<h3 id="escaneo-de-puertos-tcp-y-udp-en-modo-sigiloso-con-detección-de-sistemas-operativos">Escaneo de puertos TCP y UDP en modo sigiloso con detección de sistemas operativos</h3>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -sS -sU -T4 -A -v &lt;IP del objetivo&gt;</code></p>
+
+<p>Este comando utiliza tanto el escaneo TCP SYN stealth como el escaneo UDP para explorar los puertos abiertos. Además, muestra información detallada sobre el sistema operativo del objetivo.</p>
+
+<h3 id="evasión-de-cortafuegosids-y-falsificación">EVASIÓN DE CORTAFUEGOS/IDS Y FALSIFICACIÓN</h3>
+
+<p>Estas opciones solo son aplicables dentro de una red local.</p>
+
+<p><strong>Usando señuelos para nuestros escaneos</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -D &lt;IP señuelo 1&gt;, &lt;IP señuelo 2&gt;, &lt;IP señuelo 3&gt; -Pn -n -sCV -T4 &lt;TARGET&gt;</code></p>
+
+<p><strong>Ejemplo de uso:</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo nmap -Pn -n -sCV -T4 -D 192.168.0.9, 192.168.0.1, 192.168.0.2 192.168.0.12</code></p>
+
+<p>Realiza un sondeo con señuelos. Esto hace creer que el/los equipo/s que utilice como señuelos están también haciendo un sondeo de la red. De esta manera sus IDS pueden
+llegar a informar de que se están realizando de 5 a 10 sondeos de puertos desde distintas direcciones IP, pero no sabrán qué dirección IP está realizando el análisis y cuáles son señuelos inocentes.</p>
+
+<p>Tenga en cuenta que los equipos que utilice como distracción deberían estar conectados o puede que accidentalmente causes un ataque de inundación SYN a sus objetivos. Además, sería bastante sencillo determinar qué equipo está realmente haciendo el sondeo si sólo uno está disponible en la red.</p>
+
+<p><strong>Falsificacion de  la dirección MAC</strong></p>
+
+<p>Esta opcion nos permite falsificar nuestra direccion MAC y podemos usar esta opcion de diferentes formas por ejemplo…</p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap --spoof-mac -Pn -n -sCV -T4 &lt;TARGET&gt;</code></p>
+
+<p>En el comando escrito solo hemos puesto la opcion <strong>–spoof-mac</strong> con esta opcion Nmap nos dara una direccion MAC de forma aleatoria.</p>
+
+<p>Pero si lo queremos es sustituir nuestra direccion MAC por la de un dispositivo en especial podemos hacerlo dandole los 3 primeros bytes de la direccion</p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -Pn -n -sCV -T4 --spoof-mac 00:05:c9 192.168.0.1</code></p>
+
+<p>Puedes conseguir los prefijos de 3 bytes usando la herramienta <strong>Macchanger</strong> con la opcion <strong>-l</strong> y con <strong>grep</strong> puedes escribir el dispositivo que deseas, por ejemplo…</p>
+
+<p><code class="language-plaintext highlighter-rouge">macchanger -l | grep "Sansumg"</code></p>
+
+<p><strong>Salida:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0633 - 00:02:78 - Samsung Electro-Mechanics Co., Ltd.
+1964 - 00:07:ab - Samsung Electronics Co.,Ltd
+3530 - 00:0d:e5 - Samsung Thales
+...
+</code></pre></div></div>
+
+<p><strong>Un Oneliner para conseguir solamente una sola direccion…</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">macchanger -l | grep "Samsung" | head -n 1 | cut -d " " -f 3</code></p>
+
+<h2 id="algunas-otras-opciones-para-volar-bajo-el-radar">Algunas otras opciones para volar bajo el radar</h2>
+
+<p><strong>Evasión de Firewall mediante fragmentación de paquetes:</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -f &lt;objetivo&gt;</code></p>
+
+<p>Este comando fragmenta los paquetes de Nmap para evitar ser detectado por algunos firewalls.</p>
+
+<p>Cuando un escaneo de Nmap se fragmenta, el paquete de escaneo se divide en varios fragmentos más pequeños y se envían de manera individual a través de la red. El firewall receptor del tráfico no puede detectar la intención del escaneo, ya que sólo ve fragmentos de paquetes aparentemente no relacionados.</p>
+
+<p><strong>Falsificación de origen IP:</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -S &lt;IP Falsa&gt; &lt;objetivo&gt;</code></p>
+
+<p>Este comando permite falsificar la dirección IP de origen de los paquetes de Nmap.</p>
+
+<p><strong>Falsificación de origen de puerto:</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -g &lt;Puerto Falso&gt; &lt;objetivo&gt;</code></p>
+
+<p>Este comando permite falsificar el número de puerto de origen de los paquetes de Nmap.</p>
+
+<p><strong>Escaneo de puertos TCP mediante proxy:</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -sT &lt;objetivo&gt; --proxies &lt;servidor proxy&gt;:&lt;puerto&gt;</code></p>
+
+<p>Este comando permite utilizar un servidor proxy para escanear los puertos TCP del objetivo</p>
+
+<p><strong>Escaneo de puertos UDP mediante falsificación de paquetes ICMP:</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -sU &lt;objetivo&gt; -P0 --data-length 0 --fuzzy</code></p>
+
+<p>Este comando utiliza la falsificación de paquetes ICMP para escanear los puertos UDP del objetivo.</p>
+
+
+</article>
+      </section>
+    </div>
+  </div>
+
+   <footer>
+  <a href="https://creativecommons.org/licenses/by-nc/3.0/deed.en_US">
+    <span>
+        <b>Alex Gonzales D.</b>
+    </span>
+    
+    <span>© 2023</span>
+  </a>
+</footer>
+
+  
+</body>
+
+</html>

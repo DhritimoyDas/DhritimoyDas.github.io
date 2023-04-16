@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AlexGD Hacker Blog</title>
+    <description>Un pequeño rincon donde comparto un poco de conocimiento sobre Hacking y programacion</description>
+    <link>http://localhost:8585</link>
+    <atom:link href="http://localhost:8585/feed.xml" rel="self" type="application/rss+xml" />
+    <author>
+      <name>AlexGD</name>
+      <email>chaoskid2.0@gmail.com</email>
+      <uri>https://al3xgd.github.io</uri>
+    </author>
+    
+      <item>
+        <title>Nmap para Ninja Hackers</title>
+        <description>&lt;p&gt;Nmap es una de las herramientas indispensable para cualquier experto en ciberseguidad y administrador de red es una de las herramientas que no debe faltar dentro de tu arsenal de herramientas, acontinuacion aprenderemos como usar algunas opciones de Nmap para escanear puertos de manera sigilosa volando por debajo el radar.&lt;/p&gt;
+
+&lt;h3 id=&quot;escaneando-puertos-de-manera-sigilosa-con-tcp-syn-stealth&quot;&gt;Escaneando puertos de manera sigilosa con TCP SYN stealth&lt;/h3&gt;
+
+&lt;p&gt;Escaneo sigiloso usando el metodo SYN para el escaneo de puertos, La ventaja de un escaneo de tipo SYN es que no establece una conexión completa con el servidor, lo que significa que el escaneo es menos intrusivo y más rápido.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -Pn -n -sSCV -T4 192.168.0.1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Con la opcion &lt;strong&gt;-Pn&lt;/strong&gt;  le decimos a Nmap que no realize un Ping al Target, con la opcion &lt;strong&gt;-n&lt;/strong&gt;
+le decimos que no realize un resolucion DNS esto para agilizar el escaneo y ahorrarnos tiempo, luego esta la opcion &lt;strong&gt;-sSCV&lt;/strong&gt; la cual es una combinacion de varias opciones:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-sS&lt;/strong&gt; :  Con esta opcion le estamos diciendo a Nmap que realize un escaneo usando el metodo SYN.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-sV&lt;/strong&gt; : Para obtener version de los puertos abiertos.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-sC&lt;/strong&gt; : Para correr Scripts NSE en los puertos abiertos y asi obtener la mayor informacion posible del servicio abierto.&lt;/p&gt;
+
+&lt;p&gt;Y como ultima opcion tenemos la opcion &lt;strong&gt;-T4&lt;/strong&gt;  que es un temporizador agresivo para acelerar el escaneo.&lt;/p&gt;
+
+&lt;h3 id=&quot;escaneo-de-puertos-tcp-utilizando-un-puerto-aleatorio-de-origen&quot;&gt;Escaneo de puertos TCP utilizando un puerto aleatorio de origen&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -sS -T4 -A -v -p 1-65535 -g 53 &amp;lt;IP del objetivo&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Este comando utiliza un puerto aleatorio de origen para cada paquete enviado, lo que dificulta que el objetivo lo detecte. También se utiliza el puerto 53 (DNS) como puerto de salida para engañar a algunos firewalls.&lt;/p&gt;
+
+&lt;h3 id=&quot;escaneo-de-puertos-tcp-y-udp-en-modo-sigiloso-con-detección-de-sistemas-operativos&quot;&gt;Escaneo de puertos TCP y UDP en modo sigiloso con detección de sistemas operativos&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -sS -sU -T4 -A -v &amp;lt;IP del objetivo&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Este comando utiliza tanto el escaneo TCP SYN stealth como el escaneo UDP para explorar los puertos abiertos. Además, muestra información detallada sobre el sistema operativo del objetivo.&lt;/p&gt;
+
+&lt;h3 id=&quot;evasión-de-cortafuegosids-y-falsificación&quot;&gt;EVASIÓN DE CORTAFUEGOS/IDS Y FALSIFICACIÓN&lt;/h3&gt;
+
+&lt;p&gt;Estas opciones solo son aplicables dentro de una red local.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Usando señuelos para nuestros escaneos&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -D &amp;lt;IP señuelo 1&amp;gt;, &amp;lt;IP señuelo 2&amp;gt;, &amp;lt;IP señuelo 3&amp;gt; -Pn -n -sCV -T4 &amp;lt;TARGET&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ejemplo de uso:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo nmap -Pn -n -sCV -T4 -D 192.168.0.9, 192.168.0.1, 192.168.0.2 192.168.0.12&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Realiza un sondeo con señuelos. Esto hace creer que el/los equipo/s que utilice como señuelos están también haciendo un sondeo de la red. De esta manera sus IDS pueden
+llegar a informar de que se están realizando de 5 a 10 sondeos de puertos desde distintas direcciones IP, pero no sabrán qué dirección IP está realizando el análisis y cuáles son señuelos inocentes.&lt;/p&gt;
+
+&lt;p&gt;Tenga en cuenta que los equipos que utilice como distracción deberían estar conectados o puede que accidentalmente causes un ataque de inundación SYN a sus objetivos. Además, sería bastante sencillo determinar qué equipo está realmente haciendo el sondeo si sólo uno está disponible en la red.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Falsificacion de  la dirección MAC&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Esta opcion nos permite falsificar nuestra direccion MAC y podemos usar esta opcion de diferentes formas por ejemplo…&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap --spoof-mac -Pn -n -sCV -T4 &amp;lt;TARGET&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;En el comando escrito solo hemos puesto la opcion &lt;strong&gt;–spoof-mac&lt;/strong&gt; con esta opcion Nmap nos dara una direccion MAC de forma aleatoria.&lt;/p&gt;
+
+&lt;p&gt;Pero si lo queremos es sustituir nuestra direccion MAC por la de un dispositivo en especial podemos hacerlo dandole los 3 primeros bytes de la direccion&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -Pn -n -sCV -T4 --spoof-mac 00:05:c9 192.168.0.1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Puedes conseguir los prefijos de 3 bytes usando la herramienta &lt;strong&gt;Macchanger&lt;/strong&gt; con la opcion &lt;strong&gt;-l&lt;/strong&gt; y con &lt;strong&gt;grep&lt;/strong&gt; puedes escribir el dispositivo que deseas, por ejemplo…&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;macchanger -l | grep &quot;Sansumg&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Salida:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0633 - 00:02:78 - Samsung Electro-Mechanics Co., Ltd.
+1964 - 00:07:ab - Samsung Electronics Co.,Ltd
+3530 - 00:0d:e5 - Samsung Thales
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Un Oneliner para conseguir solamente una sola direccion…&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;macchanger -l | grep &quot;Samsung&quot; | head -n 1 | cut -d &quot; &quot; -f 3&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;algunas-otras-opciones-para-volar-bajo-el-radar&quot;&gt;Algunas otras opciones para volar bajo el radar&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Evasión de Firewall mediante fragmentación de paquetes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -f &amp;lt;objetivo&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Este comando fragmenta los paquetes de Nmap para evitar ser detectado por algunos firewalls.&lt;/p&gt;
+
+&lt;p&gt;Cuando un escaneo de Nmap se fragmenta, el paquete de escaneo se divide en varios fragmentos más pequeños y se envían de manera individual a través de la red. El firewall receptor del tráfico no puede detectar la intención del escaneo, ya que sólo ve fragmentos de paquetes aparentemente no relacionados.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Falsificación de origen IP:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -S &amp;lt;IP Falsa&amp;gt; &amp;lt;objetivo&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Este comando permite falsificar la dirección IP de origen de los paquetes de Nmap.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Falsificación de origen de puerto:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -g &amp;lt;Puerto Falso&amp;gt; &amp;lt;objetivo&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Este comando permite falsificar el número de puerto de origen de los paquetes de Nmap.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Escaneo de puertos TCP mediante proxy:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -sT &amp;lt;objetivo&amp;gt; --proxies &amp;lt;servidor proxy&amp;gt;:&amp;lt;puerto&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Este comando permite utilizar un servidor proxy para escanear los puertos TCP del objetivo&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Escaneo de puertos UDP mediante falsificación de paquetes ICMP:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap -sU &amp;lt;objetivo&amp;gt; -P0 --data-length 0 --fuzzy&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Este comando utiliza la falsificación de paquetes ICMP para escanear los puertos UDP del objetivo.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 16 Apr 2023 00:00:00 +0200</pubDate>
+        <link>http://localhost:8585//Nmap-Para-Ninjas-Hackers</link>
+        <link href="http://localhost:8585/Nmap-Para-Ninjas-Hackers"/>
+        <guid isPermaLink="true">http://localhost:8585/Nmap-Para-Ninjas-Hackers</guid>
+      </item>
+    
+      <item>
+        <title>Grep Para Hackers</title>
+        <description>
+&lt;p&gt;El comando &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; es una herramienta de búsqueda de texto que se utiliza en sistemas operativos Unix, Linux y macOS. Su nombre proviene de “Global Regular Expression Print” (“Impresión global de expresiones regulares”, en español).&lt;/p&gt;
+
+&lt;p&gt;La función principal de &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; es buscar patrones de texto dentro de uno o varios archivos. Los patrones se definen mediante expresiones regulares, que son secuencias de caracteres que describen un conjunto de cadenas de texto.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; recorre línea por línea los archivos especificados y devuelve las líneas que contienen el patrón buscado. También puede mostrar la línea anterior o posterior a la que contiene el patrón, contar el número de líneas que contienen el patrón, entre otras funciones.&lt;/p&gt;
+
+&lt;p&gt;Acontinuacion vamos a ver con distintos ejemplos como puedes emplear grep en tu diario dia a dia como Hacker.&lt;/p&gt;
+
+&lt;h2 id=&quot;obteniendo-urls-que-comienzen-con-https-http&quot;&gt;Obteniendo urls que comienzen con https:// http://&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -o &apos;http[s]\?://[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+&apos; &lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;obteniendo-urls-que-comienzen-con-www-y-no-con-httphttps&quot;&gt;Obteniendo urls que comienzen con www. y no con http:/https:&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -o &apos;www\.[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+&apos;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;obteniendo-ips-ipv4&quot;&gt;Obteniendo IPs (IPv4)&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -oE &quot;\b([0-9]{1,3}\.){3}[0-9]{1,3}\b&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;obteniendo-ips-ipv6&quot;&gt;Obteniendo IPs IPv6&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -oE &quot;([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;obteniendo-direcciones-que-tengan-el-formato-usuariogmailcom&quot;&gt;Obteniendo direcciones que tengan el formato “usuario@gmail.com”&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -oE &apos;:alnum:]_]+@[[:alnum:]_]+\.[[:alpha:{2,4}&apos;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;obteniendo-direcciones-que-incluyan-subdominios-y-tengan-un-fomato-mas-complejo&quot;&gt;Obteniendo direcciones que incluyan subdominios y tengan un fomato mas complejo&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -oE &apos;:alnum:]_]+@[[:alnum:]_]+\.[[:alpha:{2,4}(\.:alpha:{2,4})+&apos;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;buscando-buscando-palabras-claves-dentro-de-directorios-de-manera-recursiva&quot;&gt;Buscando buscando palabras claves dentro de directorios de manera recursiva&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -r &quot;password&quot; /ruta/al/directorio&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;buscando-palabra-clave-dentro-de-un-fichero-individual&quot;&gt;Buscando palabra clave dentro de un fichero individual&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -i &quot;password&quot; index.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;ejemplos-de-uso&quot;&gt;Ejemplos de uso&lt;/h1&gt;
+
+&lt;h3 id=&quot;puedes-usarlo-para-obtener-todas-las-urls-de-un-sitio-web&quot;&gt;Puedes usarlo para obtener todas las URLs de un sitio Web&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl -s https://target.com | grep -o &apos;http[s]\?://[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+&apos; | cut -d &apos;/&apos; -f 3 | tr -d &apos;&quot;&amp;gt;&apos; | uniq -u&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;puedes-obtener-urls-de-ficheros-binarios&quot;&gt;Puedes obtener urls de ficheros binarios&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string &amp;lt;fichero binario&amp;gt; | grep &apos;http[s]\?://[a-zA-Z0-9\-\.]\+\.[a-zA-Z]\{2,\}\(:[0-9]\+\)\?[^[:space:]]\+&apos;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;puedes-usar-grep-para-la-recoleccion-emails-de-un-fichero-sql-u-otros-ficheros&quot;&gt;Puedes usar grep para la recoleccion Emails de un fichero sql u otros ficheros.&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat db.sql | grep -oE &apos;:alnum:]_]+@[[:alnum:]_]+\.[[:alpha:{2,4}(\.:alpha:{2,4})+&apos; | uniq -u&lt;/code&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 16 Apr 2023 00:00:00 +0200</pubDate>
+        <link>http://localhost:8585//Grep-para-Hackers</link>
+        <link href="http://localhost:8585/Grep-para-Hackers"/>
+        <guid isPermaLink="true">http://localhost:8585/Grep-para-Hackers</guid>
+      </item>
+    
+  </channel>
+</rss>
