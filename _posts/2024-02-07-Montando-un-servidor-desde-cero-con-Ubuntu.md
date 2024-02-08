@@ -7,7 +7,7 @@ Antes de instalar Tor y configurar nuestro Hidden Service, vamos instalar y conf
 
 ### Instalación de herramientas básicas para el servidor
 
-**Para usar el comando ifconfig y otros comando para administración de red vamos a instalar net-tools:
+**Para usar el comando ifconfig y otros comando para administración de red vamos a instalar net-tools:**
 
 ```bash
 sudo apt install net-tools
@@ -40,7 +40,7 @@ sudo systemctl status nginx
 
 Si todo va bien comenzamos con la creación del directorio de nuestro sitio, sin permisos de *root* para prevenir que un atacante tenga todos los permisos al piratear nuestro Server.
 
-**Creación de directorio para nuestra Web
+**Creación de directorio para nuestra Web**
 
 ```bash 
 sudo mkdir -p /var/www/sitio/html
@@ -48,13 +48,13 @@ sudo mkdir -p /var/www/sitio/html
 
 *La opción -p crea directorios y subdirectorios de forma automática*
 
-**Asignando permisos al directorio que hemos creado
+**Asignando permisos al directorio que hemos creado**
 
 ```bash
 sudo chmod -R 755 /www/sitio/html
 ```
 
-**Creando nuestro fichero index.html
+**Creando nuestro fichero index.html**
 
 ```bash
 vi /var/www/sitio/html/index.html
@@ -91,7 +91,7 @@ sudo ln -s /etc/nginx/sites-available/sitio /etc/nginx/sites-enabled/
 ```
 
 
-**Verificando si no hay errores en nuestra configuración
+**Verificando si no hay errores en nuestra configuración**
 
 ```bash
 sudo nginx -t
@@ -133,7 +133,7 @@ sudo service nginx restart
 
 Ya tenemos nuestro servidor Web corriendo en nuestro sistema pro nos falta una manera de subir los ficheros de nuestro sitio Web hacia el directorio /var/www/html/.
 
-**Instalación de vsftpd
+**Instalación de vsftpd**
 
 ```bash
 sudo apt install -y vsftpd
@@ -168,7 +168,7 @@ user_sub_token=$USER
 local_root=/var/www/html
 ```
 
-**Darle acceso a los usuarios del sistema:
+**Darle acceso a los usuarios del sistema:**
 
 ```bash
 userlist_enable=YES
@@ -176,13 +176,13 @@ userlist_fle=/etc/vsftpd.userlist
 userlist_deny=NO
 ```
 
-**Configurando el Firewall
+**Configurando el Firewall**
 
 ```bash
 sudo ufw allow 21
 ```
 
-**Añadiendo usuarios a la lista de usuarios 
+**Añadiendo usuarios a la lista de usuarios**
 
 ```bash
 echo $USER ! sudo tee -a /etc/vsftpd.userlist
@@ -235,7 +235,7 @@ Ahora que tenemos PHP instalado vamos a necesitar una base de datos donde guarda
 sudo apt install mysql-server
 ```
 
-**Creación de usuario para mysql:
+**Creación de usuario para mysql:**
 
 Creando usuario y contraseña
 
