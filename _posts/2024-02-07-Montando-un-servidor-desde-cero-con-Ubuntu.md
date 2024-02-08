@@ -99,13 +99,13 @@ sudo nginx -t
 
 Reiniciamos el servidor
 
-**Opción #1
+**Opción #1**
 
 ```bash
 sudo systemctl restart nginx
 ```
 
-**Opción #2
+**Opción #2**
 
 ```bash
 sudo service nginx restart
@@ -139,14 +139,14 @@ Ya tenemos nuestro servidor Web corriendo en nuestro sistema pro nos falta una m
 sudo apt install -y vsftpd
 ```
 
-**Verificamos si vsftpd esta corriendo en nuestro sistema
+**Verificamos si vsftpd esta corriendo en nuestro sistema**
 
 ```bash
 sudo systemctl status vsftpd
 ```
 
 
-**Configurando el fichero vsftpd.conf
+**Configurando el fichero vsftpd.conf**
 
 Deshabilitando el usuario anonymous
 
