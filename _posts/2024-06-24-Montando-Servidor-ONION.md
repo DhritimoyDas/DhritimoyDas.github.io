@@ -1,3 +1,4 @@
+<img title="Tor for the freedom" src="tor-browser.jpg">
 
 ## Instalación de Tor 
 
