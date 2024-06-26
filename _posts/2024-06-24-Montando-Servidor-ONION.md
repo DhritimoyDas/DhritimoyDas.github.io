@@ -7,6 +7,14 @@ sudo apt update
 sudo apt install -y tor
 ```
 
+## Ejecutando Tor
+
+**Iniciando Tor**
+
+```bash
+sudo service tor start 
+```
+
 ## Editando el fichero de configuración para levantar el Hidden Service
 
 Vamos a editar el fichero ```/etc/tor/torrc``` 
@@ -17,7 +25,7 @@ y vamos a añadir o a descomentar las lineas...
 ```bash
 HiddenServiceDir /var/lib/tor/hidden_service
 HiddenServicePort 80 127.0.0.1:80 <----- Nuestro servidor local
-				  /\
+                  /\
 Puerto a la escucha en el sitio ONION 	
 ```
 
@@ -126,6 +134,6 @@ Se nos generar un directorio con las claves privadas de la url lo exportas hacia
 
 ## Notas finales
 
- - **Si deseas añadir mas seguridad a tu servidor puedes seguir nuestra guía de Hardening.**
+ - **Si deseas añadir mas seguridad a tu servidor puedes seguir nuestra <a href="https://al3xgd.github.io/Hardening-a-servidor-Nginx">guía de Hardening.</a>**
  - **Ten en cuenta que no solo puedes montar un servidor Web, también puedes montar un servidor SSH o FTP.**
  - **Los mayores problemas para un servidor Web ONION son los constantes ataques DDoS, por lo tanto establece algunas medidas de seguridad en tu servidor.**
