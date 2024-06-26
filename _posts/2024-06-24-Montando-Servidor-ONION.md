@@ -117,8 +117,12 @@ mkp224o -n 1 test
 test67pqshefizpib47jwnfrh57esinxhvq74ghv3v2luno2sjg4jxid.onion
 ```
 
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/k3zBWR1/2024-06-26-12-29.png" alt="2024-06-26-12-29" border="0"></a>
+
 Se nos generar un directorio con las claves privadas de la url lo exportas hacia la carpeta
  **/var/lib/tor/hidden_service** reseteamos tor y listo!!.
+
+<a href="https://ibb.co/cTqgSGs"><img src="https://i.ibb.co/tCRmT71/2024-06-26-14-00.png" alt="2024-06-26-14-00" border="0"></a>
 
 ## Notas finales
 
